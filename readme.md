@@ -1,158 +1,98 @@
-Certainly! Here's a more **professional, concise, and cloud-ready** version of the 3-week project plan, tailored for documentation and internal planning purposes.
+Certainly! Here's a **detailed Week 1 plan** in a **sprint-style format**, designed for documentation or team planning. It focuses on building the foundation of the **UI-based configuration file generator** using Angular (frontend), FastAPI (backend), and MongoDB Atlas (cloud).
 
 ---
 
-## 📄 Project Plan: UI-Based Configuration File Generator
-
-### 🛠️ Tech Stack
-
-* **Frontend**: Angular (v20)
-* **Backend**: Python (FastAPI)
-* **Database**: MongoDB Atlas (Cloud)
-* **Storage**: Local directory structure for generated configuration files
-
----
-
-### 📅 **Week 1: Prototype Implementation**
-
-#### Objective:
-
-Develop a functional prototype to demonstrate the core concept of generating configuration files based on user-defined parameters.
-
-#### Deliverables:
-
-* Initial Angular UI to capture required config parameters
-* Categorization of fields: mandatory, optional, default, dependent
-* FastAPI backend setup with Cloud MongoDB integration (MongoDB Atlas)
-* API to accept form data and generate corresponding `.json` config files
-* Static folder structure created for storing config files per environment
-
----
-
-### 📅 **Week 2: Feature Expansion & UI Enhancements**
-
-#### Objective:
-
-Enhance backend logic and frontend usability for dynamic, environment-specific configuration handling.
-
-#### Deliverables:
-
-* UI improvements: field validation, grouping, conditional logic (show/hide based on dependencies)
-* Backend logic to support multiple environments (UAT, PROD, etc.)
-* Dynamic config generation logic and standardized file naming
-* Integration of CRUD operations with MongoDB for storing/retrieving config templates
-* Ability to view, edit, and regenerate configuration files from stored records
-
----
-
-### 📅 **Week 3: Testing, Integration & Feedback Implementation**
-
-#### Objective:
-
-Ensure application quality through testing and refine the system based on user feedback.
-
-#### Deliverables:
-
-* Unit and integration testing (API, form submission, MongoDB operations)
-* Error handling for invalid input, generation failures, or DB issues
-* Review session with internal stakeholders; incorporate functional feedback
-* Documentation for parameter structure, form usage, and config rules
-* Final optimized build for internal deployment or demo purposes
-
----
-
-### 📌 Outcome
-
-At the end of 3 weeks, the system will provide a robust UI to define configuration frameworks, persist them using MongoDB Atlas, and generate environment-specific `.json` config files with version-safe organization.
-
-Let me know if you'd like this tailored into a Gantt chart or sprint format.
-
-Certainly! Here's the same 3-week plan presented in a **professional sprint format**, commonly used in Agile documentation for internal projects.
-
----
-
-## 📋 Sprint Plan: UI-Based Configuration File Generator
-
-**Project Duration**: 3 Weeks
-**Team**: Angular (Frontend) + FastAPI (Backend)
-**Database**: MongoDB Atlas (Cloud)
-**Delivery Model**: Weekly Sprints
-
----
-
-### 🏁 **Sprint 1: Prototype Development**
+## 🏁 **Sprint 1: Prototype Development**
 
 **Duration**: Week 1
-**Sprint Goal**: Establish basic UI, backend, and config generation functionality
-
-#### ✅ Sprint Backlog
-
-* Setup Angular project structure and initial UI form
-* Connect backend FastAPI service to MongoDB Atlas
-* Define Pydantic models for config fields (mandatory, optional, dependent)
-* Implement API to accept config input and generate `.json` files
-* Create basic folder structure for UAT/PROD environments
-* Store config metadata in MongoDB
-
-#### 🔄 Deliverables
-
-* Working prototype with config generation
-* MongoDB persistence for templates
-* Static config folders created per environment
+**Sprint Goal**: Deliver a functional prototype that connects the Angular UI with a FastAPI backend and persists config templates to MongoDB Atlas. The system should generate JSON config files based on user input and save them in a structured local directory.
 
 ---
 
-### 🏁 **Sprint 2: Feature Development & UI Enhancements**
+### 🎯 **Sprint Objectives**
 
-**Duration**: Week 2
-**Sprint Goal**: Add advanced config logic, field dependencies, and enhance UI/UX
-
-#### ✅ Sprint Backlog
-
-* Add dynamic form features (conditional visibility, field dependencies)
-* Implement edit/update feature for saved config templates
-* Introduce environment selection logic (UAT, PROD, COB)
-* Improve file structure and naming conventions for configs
-* Enhance user feedback (toasts, validation messages)
-* API enhancements to support multiple versions per config type
-
-#### 🔄 Deliverables
-
-* Dynamic, environment-aware UI
-* Edit/regenerate existing templates
-* MongoDB CRUD for templates completed
+* Establish baseline UI for collecting configuration parameters.
+* Set up FastAPI backend and connect to MongoDB Atlas.
+* Implement basic API for config file generation.
+* Define data models and config structure.
+* Store submitted config data in the database.
+* Generate and save `.json` files locally per environment (UAT, PROD, COB).
 
 ---
 
-### 🏁 **Sprint 3: Testing, Integration & Feedback Implementation**
+### ✅ **Sprint Backlog (Tasks)**
 
-**Duration**: Week 3
-**Sprint Goal**: Stabilize, validate, and refine the product based on internal feedback
+#### 🧩 **1. Angular Frontend Setup**
 
-#### ✅ Sprint Backlog
+* Set up form to capture 50+ parameters.
+* Group fields: mandatory, optional, defaulted, dependent.
+* Build form layout using Angular Reactive Forms.
+* Integrate dropdowns, toggles, and text fields based on field types.
+* Enable basic validation (required, input types, etc.).
 
-* Implement unit and integration tests for backend APIs
-* UI-level form validations and error boundaries
-* Handle backend exceptions and DB edge cases
-* Collect internal stakeholder feedback
-* Refactor backend logic and UI based on feedback
-* Write concise internal usage documentation
+#### ⚙️ **2. FastAPI Backend Setup**
 
-#### 🔄 Deliverables
+* Initialize FastAPI project with necessary structure (`main.py`, `routes/`, `models/`, `database.py`).
+* Install dependencies: `fastapi`, `uvicorn`, `pydantic`, `pymongo`, `python-dotenv`.
 
-* Tested and validated full-stack config generator
-* Improved UI/UX based on feedback
-* Internal documentation for usage and maintenance
+#### 🗃️ **3. MongoDB Atlas Integration**
+
+* Set up a MongoDB Atlas cluster and create a database (`config_generator`).
+* Configure `.env` file for MongoDB URI and credentials.
+* Create connection module (`database.py`) to connect FastAPI with MongoDB Atlas.
+
+#### 🧠 **4. Data Modeling**
+
+* Create Pydantic models for:
+
+  * `ConfigParameter` (fields: label, type, required, default, etc.)
+  * `ConfigTemplate` (template name, environment, timestamp, list of parameters)
+
+#### 🔗 **5. API Implementation**
+
+* `POST /configs` — Receive data from Angular and:
+
+  * Save template metadata and parameters in MongoDB.
+  * Generate a `.json` config file.
+  * Save file in `/output/{environment}/{template_name}.json`.
+
+* `GET /configs` — List all saved config templates.
+
+* (Optional) `GET /configs/{id}` — View a specific config template.
+
+#### 📁 **6. File Handling & Folder Structure**
+
+* Automatically create folder paths: `/output/UAT/`, `/output/PROD/`, `/output/COB/`
+* Generate `.json` files with parameter data and save under appropriate environment folder.
 
 ---
 
-### 📌 Final Outcome (End of Sprint 3)
+### 🧪 **Sprint Testing Plan**
 
-* Full-stack application to create, manage, and generate config files
-* Configurations stored in MongoDB Atlas and output to environment-based folders
-* Editable, reusable templates with validation, feedback, and structured versioning
-* Ready for internal rollout or demo to extended teams
+* Test Angular form submission and backend integration via HTTP.
+* Verify MongoDB entries for submitted configurations.
+* Check `.json` file generation and location.
+* Use Swagger UI to test backend endpoints.
 
 ---
 
-Let me know if you want this exported as a Notion/Sprint Board template or converted to a Jira-friendly ticket breakdown.
+### 📌 **Sprint Deliverables**
+
+* Angular UI form for config input (with validation).
+* Working FastAPI backend connected to MongoDB Atlas.
+* APIs to receive and persist config data.
+* `.json` file generation logic implemented.
+* Directory structure organized per environment.
+
+---
+
+### 🚧 **Known Limitations (To be addressed in Sprint 2)**
+
+* UI lacks advanced logic (conditional visibility, environment switching).
+* No ability to edit/update existing configs.
+* No unit tests yet.
+* No authentication or user roles.
+
+---
+
+Let me know if you'd like this converted into a shared doc, markdown file, or sprint board format!
